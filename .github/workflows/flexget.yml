@@ -20,12 +20,12 @@ jobs:
         run: |
           python3 flexgetcheck.py
       - name: Set up Python 3.10
-        if: contains(env.RUN, 'run')
+        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
       - name: Set up Rclone &Copy backend File
-        if: contains(env.RUN, 'run')
+        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone
@@ -33,12 +33,12 @@ jobs:
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
           git clone https://oauth2:$REPO_TOKEN@github.com/xusenfa/autoscriptbackend.git
       - name: Install dependencies
-        if: contains(env.RUN, 'run')
+        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
           python3 -m pip install wheel
           python3 -m pip install colorama
       - name: Install & Configure FlexGet
-        if: contains(env.RUN, 'run')
+        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
           pip install flexget
           cp -rl autoscriptbackend/flexget/. ~/.flexget
@@ -55,6 +55,6 @@ jobs:
           wget -q "https://share.dmhy.org/topics/rss/rss.xml"
           flexget execute --learn
       - name: Upload FlexGet database
-        if: contains(env.RUN, 'run')
+        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
           rclone copyto ~/.flexget/db-config.sqlite gdpersonal:flexget/db-config.sqlite
