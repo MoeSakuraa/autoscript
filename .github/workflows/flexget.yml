@@ -49,7 +49,7 @@ jobs:
           wget -q "https://share.dmhy.org/topics/rss/rss.xml"
           flexget execute
       - name: FlexGet learn
-        if: github.event.action == 'FlexGet learn' && contains(env.RUN, 'run')
+        if: github.event.action == 'FlexGet learn'
         run: |
           rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
           wget -q "https://share.dmhy.org/topics/rss/rss.xml"
