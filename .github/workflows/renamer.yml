@@ -16,11 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: check
+        run: |
+          python3 flexgetcheck.py
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
       - name: Set up Rclone &Copy backend File
+        if: contains(env.RUN, 'run')
         run: |
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone
@@ -28,5 +32,6 @@ jobs:
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
           git clone https://oauth2:$REPO_TOKEN@github.com/xusenfa/autoscriptbackend.git
       - name: file rename
+        if: contains(env.RUN, 'run')
         run: |
           python3 autoscriptbackend/renamer.py
