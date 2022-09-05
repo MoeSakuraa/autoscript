@@ -19,7 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Python 3.10
-        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
