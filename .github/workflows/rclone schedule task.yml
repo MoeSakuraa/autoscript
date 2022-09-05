@@ -25,7 +25,7 @@ jobs:
       - name: Install Rclone && Rclone actions
         if: github.event.action == 'rclonedaily'
         run: |
-          python3 -m pip install pynacl
+          python3 -m pip install pynacl requests
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
