@@ -35,4 +35,4 @@ jobs:
           rclone lsf od5t:
           rclone copyto ~/.config/rclone/rclone.conf $ALIOSSNAME/rclone.conf -P
           python3 rcloneupdate.py
-          rclone sync gd: od5t: -P
+          rclone sync gd: od5t: -P --delete-before
