@@ -10,7 +10,7 @@ on:
 env:
   RCLONECONF: ${{ secrets.RCLONECONF }}
   ALIOSSNAME: ${{ secrets.ALIOSSNAME }}
-
+  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
