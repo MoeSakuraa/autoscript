@@ -16,9 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: 'xusenfa/autoscriptbackend'
+          path: autoscriptbackend
+          token: '${{ secrets.REPO_TOKEN }}'
       - name: check
         run: |
-          python3 flexgetcheck.py
+          python3 autoscriptbackend/flexgetcheck.py
       - name: Set up Python 3.10
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         uses: actions/setup-python@v4
@@ -27,11 +32,11 @@ jobs:
       - name: Set up Rclone &Copy backend File
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
+          wget -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
-          git clone https://oauth2:$REPO_TOKEN@github.com/xusenfa/autoscriptbackend.git
       - name: Install dependencies
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
@@ -46,13 +51,13 @@ jobs:
         if: github.event.action == 'FlexGet execute' && contains(env.RUN, 'run')
         run: |
           rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
-          wget -q "https://share.dmhy.org/topics/rss/rss.xml"
+          wget -t 0 -q "https://share.dmhy.org/topics/rss/rss.xml"
           flexget execute
       - name: FlexGet learn
         if: github.event.action == 'FlexGet learn'
         run: |
           rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
-          wget -q "https://share.dmhy.org/topics/rss/rss.xml"
+          wget -t 0 -q "https://share.dmhy.org/topics/rss/rss.xml"
           flexget execute --learn
       - name: Upload FlexGet database
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
