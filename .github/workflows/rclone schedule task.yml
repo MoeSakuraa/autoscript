@@ -41,4 +41,4 @@ jobs:
           rclone lsf od5t:
           rclone copyto ~/.config/rclone/rclone.conf $ALIOSSNAME/rclone.conf -P
           python3 autoscriptbackend/rcloneconfupdate.py
-          rclone sync gd: od5t: -P --delete-before --exclude "cy自用勿删勿访问/" --delete-excluded
+          rclone copy gdreadonly: gdunlimit: -P --delete-before --exclude "cy自用勿删勿访问/" --delete-excluded
