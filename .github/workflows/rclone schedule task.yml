@@ -18,6 +18,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: 'xusenfa/autoscriptbackend'
+          path: autoscriptbackend
+          token: '${{ secrets.REPO_TOKEN }}'
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
@@ -26,7 +31,7 @@ jobs:
         if: github.event.action == 'rclonedaily'
         run: |
           python3 -m pip install pynacl requests
-          wget -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
+          wget --retry-on-http-error=502 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
