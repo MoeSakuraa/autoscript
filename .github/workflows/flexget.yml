@@ -10,7 +10,7 @@ on:
 env:
   RCLONECONF: ${{ secrets.RCLONECONF }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-
+  CHECK_TASKFILENAME: "flexget"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
           token: '${{ secrets.REPO_TOKEN }}'
       - name: check
         run: |
-          python3 autoscriptbackend/flexgetcheck.py
+          python3 autoscriptbackend/check.py
       - name: Set up Python 3.10
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         uses: actions/setup-python@v4

@@ -10,7 +10,7 @@ on:
 env:
   RCLONECONF: ${{ secrets.RCLONECONF }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-
+  CHECK_TASKFILENAME: "renamer"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
           token: '${{ secrets.REPO_TOKEN }}'
       - name: check
         run: |
-          python3 autoscriptbackend/renamercheck.py
+          python3 autoscriptbackend/check.py
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:

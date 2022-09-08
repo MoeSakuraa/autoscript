@@ -12,7 +12,20 @@ env:
   ALIOSSNAME: ${{ secrets.ALIOSSNAME }}
   ALIOSSPRIVATENAME: ${{ secrets.ALIOSSPRIVATENAME }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+  CHECK_TASKFILENAME: "rclone schedule task"
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: 'xusenfa/autoscriptbackend'
+          path: autoscriptbackend
+          token: '${{ secrets.REPO_TOKEN }}'
+      - name: check
+        run: |
+          python3 autoscriptbackend/check.py
   build:
     runs-on: ubuntu-latest
     strategy:
