@@ -5,7 +5,7 @@ on:
   watch:
     types: [started]
   repository_dispatch:
-    types: ["rclonedaily", "rclonedailycy"]
+    types: ["rclonedaily"]
 
 env:
   RCLONECONF: ${{ secrets.RCLONECONF }}
@@ -15,6 +15,11 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        commmand:
+          - 'rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "cy自用勿删勿访问/" --delete-excluded'
+          - 'rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded --transfers 100'
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
       - name: Checkout
@@ -29,7 +34,6 @@ jobs:
         with:
           python-version: "3.10"
       - name: Install Rclone && Rclone actions
-        if: github.event.action == 'rclonedaily'
         run: |
           python3 -m pip install pynacl requests
           wget --retry-on-http-error=502,503 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
@@ -43,14 +47,6 @@ jobs:
           rclone lsf odcy:
           rclone copyto ~/.config/rclone/rclone.conf $ALIOSSPRIVATENAME/rclone.conf -P
           python3 autoscriptbackend/rcloneconfupdate.py
-          rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "cy自用勿删勿访问/" --delete-excluded
-      - name: Install Rclone && Rclone actions CY
-        if: github.event.action == 'rclonedailycy'
+      - name: runjobs
         run: |
-          python3 -m pip install pynacl requests
-          wget --retry-on-http-error=502,503 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
-          unzip rclone-linux-amd64.zip
-          sudo cp rclone*/rclone /usr/bin/rclone
-          mkdir -p ~/.config/rclone
-          base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
-          rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded --transfers 100
+          ${{ matrix.commmand }}
