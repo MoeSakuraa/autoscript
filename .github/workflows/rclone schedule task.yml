@@ -5,7 +5,7 @@ on:
   watch:
     types: [started]
   repository_dispatch:
-    types: ["rclonedaily"]
+    types: ["Rclone Actions"]
 
 env:
   RCLONECONF: ${{ secrets.RCLONECONF }}
