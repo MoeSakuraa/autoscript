@@ -19,8 +19,8 @@ jobs:
     strategy:
       matrix:
         command:
-          - 'rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "game/" --delete-excluded --transfers 100 --union-min-free-space 100Gi'
-          - 'rclone sync gdcy: odcy:GD备份 -P --delete-before --delete-excluded --transfers 100 --union-min-free-space 100Gi'
+          - 'rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "game/" --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
+          - 'rclone sync gdcy: odcy:GD备份 -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
     if: github.event.repository.owner.id == github.event.sender.id
     env:
       COMMAND: ${{ matrix.command }}
