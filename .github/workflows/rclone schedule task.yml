@@ -50,6 +50,10 @@ jobs:
       - name: runjobs
         run: |
           ${{ matrix.commmand }}
+  call-next-task:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: call next task
         run: |
           python3 autoscriptbackend/dispatchrclone.py
