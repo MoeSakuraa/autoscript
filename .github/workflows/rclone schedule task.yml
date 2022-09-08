@@ -53,4 +53,4 @@ jobs:
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
-          rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded
+          rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded --transfers 100
