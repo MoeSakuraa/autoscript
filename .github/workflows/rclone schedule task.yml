@@ -17,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        commmand:
-          - 'rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "cy自用勿删勿访问/" --delete-excluded --transfers 100 --union-min-free-space 100Gi'
-          - 'rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded --transfers 100 --union-min-free-space 100Gi'
+        command:
+          - 'rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "game/" --delete-excluded --transfers 100 --union-min-free-space 100Gi'
+          - '#rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded --transfers 100 --union-min-free-space 100Gi'
     if: github.event.repository.owner.id == github.event.sender.id
+    env:
+      COMMAND: ${{ matrix.command }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -49,7 +51,8 @@ jobs:
           python3 autoscriptbackend/rcloneconfupdate.py
       - name: runjobs
         run: |
-          ${{ matrix.commmand }}
+          sudo bash autoscriptbackend/killrclone.sh &
+          python3 autoscriptbackend/rcloneaction.py
   call-next-task:
     runs-on: ubuntu-latest
     needs: build
