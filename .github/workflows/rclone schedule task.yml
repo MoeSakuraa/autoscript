@@ -31,6 +31,8 @@ jobs:
         if: contains(env.RUN, 'shutdown')
         with:
           status: failure
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
 
   build:
     runs-on: ubuntu-latest
