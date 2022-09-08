@@ -39,7 +39,18 @@ jobs:
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
           rclone copyurl https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt $ALIOSSNAME/rule-providers/gfw.txt
           rclone copyurl https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt $ALIOSSNAME/rule-providers/cncidr.txt
-          rclone lsf od5t:
+          rclone lsf odunion:
+          rclone lsf odcy:
           rclone copyto ~/.config/rclone/rclone.conf $ALIOSSPRIVATENAME/rclone.conf -P
           python3 autoscriptbackend/rcloneconfupdate.py
           rclone copy gdreadonly: gdunlimited: -P --delete-before --exclude "cy自用勿删勿访问/" --delete-excluded
+      - name: Install Rclone && Rclone actions CY
+        if: github.event.action == 'rclonedailycy'
+        run: |
+          python3 -m pip install pynacl requests
+          wget --retry-on-http-error=502,503 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
+          unzip rclone-linux-amd64.zip
+          sudo cp rclone*/rclone /usr/bin/rclone
+          mkdir -p ~/.config/rclone
+          base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
+          rclone sync gdunlimitedcy: odcy:GD备份 -P --delete-before --delete-excluded
