@@ -12,6 +12,7 @@ env:
   VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
   RCLONECONF: ${{ secrets.RCLONECONF }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest

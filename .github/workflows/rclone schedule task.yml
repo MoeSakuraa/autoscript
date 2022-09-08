@@ -12,6 +12,7 @@ env:
   ALIOSSNAME: ${{ secrets.ALIOSSNAME }}
   ALIOSSPRIVATENAME: ${{ secrets.ALIOSSPRIVATENAME }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
