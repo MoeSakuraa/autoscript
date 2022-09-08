@@ -54,6 +54,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: 'xusenfa/autoscriptbackend'
+          path: autoscriptbackend
+          token: '${{ secrets.REPO_TOKEN }}'
       - name: call next task
         run: |
           python3 autoscriptbackend/dispatchrclone.py
