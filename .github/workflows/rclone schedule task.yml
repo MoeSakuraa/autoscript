@@ -50,3 +50,6 @@ jobs:
       - name: runjobs
         run: |
           ${{ matrix.commmand }}
+      - name: call next task
+        run: |
+          python3 autoscriptbackend/dispatchrclone.py
