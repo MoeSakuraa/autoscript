@@ -54,4 +54,4 @@ jobs:
           token: "${{ secrets.REPO_TOKEN }}"
       - name: call next task
         run: |
-          #python3 autoscriptbackend/dispatchrclone.py
+          python3 autoscriptbackend/dispatchrclone.py
