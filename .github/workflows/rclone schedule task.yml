@@ -26,9 +26,16 @@ jobs:
       - name: check
         run: |
           python3 autoscriptbackend/check.py
+      - name: failure
+        uses: technote-space/workflow-conclusion-action@v3
+        if: contains(env.RUN, 'shutdown')
+        with:
+          status: failure
+
   build:
     runs-on: ubuntu-latest
-    if: contains(env.RUN, 'run') || github.event.repository.owner.id == github.event.sender.id
+    needs: check
+    if: github.event.repository.owner.id == github.event.sender.id
     strategy:
       matrix:
         commmand:
