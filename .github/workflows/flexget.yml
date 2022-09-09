@@ -26,6 +26,8 @@ jobs:
       - name: check
         run: |
           python3 autoscriptbackend/check.py
+      - id: checkresult
+        run: echo "::set-output name=test::{{ env.RUN }}"
       - name: Set up Python 3.10
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         uses: actions/setup-python@v4
@@ -76,6 +78,6 @@ jobs:
           path: autoscriptbackend
           token: "${{ secrets.REPO_TOKEN }}"
       - name: call next task
-        if: contains(env.RUN, 'run')
+        if: contains(needs.build.outputs.checkresult, 'run')
         run: |
           python3 autoscriptbackend/dispatchrclone.py
