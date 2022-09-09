@@ -53,13 +53,13 @@ jobs:
         if: github.event.action == 'FlexGet execute' && contains(env.RUN, 'run')
         run: |
           rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
-          wget -t 0 -q "https://share.dmhy.org/topics/rss/rss.xml"
+          python3 autoscriptbackend/getrss.py
           flexget execute
       - name: FlexGet learn
         if: github.event.action == 'FlexGet learn'
         run: |
           rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
-          wget -t 0 -q "https://share.dmhy.org/topics/rss/rss.xml"
+          python3 autoscriptbackend/getrss.py
           flexget execute --learn
       - name: Upload FlexGet database
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
