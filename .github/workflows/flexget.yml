@@ -54,7 +54,7 @@ jobs:
         run: |
           rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
           python3 autoscriptbackend/getrss.py
-          #flexget execute
+          flexget execute
           python3 autoscriptbackend/databasecleanup.py
       - name: FlexGet learn
         if: github.event.action == 'FlexGet learn'
