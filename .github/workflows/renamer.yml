@@ -53,5 +53,6 @@ jobs:
           path: autoscriptbackend
           token: "${{ secrets.REPO_TOKEN }}"
       - name: call next task
+        if: contains(env.RUN, 'run')
         run: |
           python3 autoscriptbackend/dispatchrclone.py
