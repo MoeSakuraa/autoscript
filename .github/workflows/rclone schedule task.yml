@@ -13,6 +13,7 @@ env:
   ALIOSSPRIVATENAME: ${{ secrets.ALIOSSPRIVATENAME }}
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
   EVENT: "Rclone Actions"
+  CHECK_TASKFILENAME: "rclone schedule task"
 
 jobs:
   build:
@@ -33,6 +34,9 @@ jobs:
           repository: 'xusenfa/autoscriptbackend'
           path: autoscriptbackend
           token: '${{ secrets.REPO_TOKEN }}'
+      - name: check
+        run: |
+          python3 autoscriptbackend/check.py
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
@@ -65,5 +69,6 @@ jobs:
           path: autoscriptbackend
           token: '${{ secrets.REPO_TOKEN }}'
       - name: call next task
+        if: contains(env.RUN, 'run')
         run: |
           python3 autoscriptbackend/dispatchrclone.py
