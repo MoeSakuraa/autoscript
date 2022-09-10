@@ -27,7 +27,7 @@ jobs:
         run: |
           python3 autoscriptbackend/check.py
       - id: checkresult
-        run: echo "::set-output name=test::{{ env.RUN }}"
+        run: echo "::set-output name=test::${{ env.RUN }}"
       - name: Set up Python 3.10
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         uses: actions/setup-python@v4
