@@ -16,6 +16,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      checkresult: ${{ steps.checkresult.outputs.test }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/checkout@v3
