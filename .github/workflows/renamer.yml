@@ -28,7 +28,7 @@ jobs:
       - name: check
         run: |
           python3 autoscriptbackend/check.py
-      - id: checkresult
+      - name: checkresult
         run: echo "::set-output name=test::{{ env.RUN }}"
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
