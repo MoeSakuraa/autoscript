@@ -53,6 +53,10 @@ jobs:
         run: |
           pip install flexget
           cp -rl autoscriptbackend/flexget/. ~/.flexget
+      - name: Check Aria2
+        if: github.event.action == 'FlexGet execute' && contains(env.RUN, 'run')
+        run: |
+          python3 autoscriptbackend/checkaria2.py
       - name: FlexGet execute
         if: github.event.action == 'FlexGet execute' && contains(env.RUN, 'run')
         run: |
