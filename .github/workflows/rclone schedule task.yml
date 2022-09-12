@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         command:
-          - 'rclone copy odunion: gdunlimited: -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
+          - 'rclone copy gd: gdunlimited: -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
           - 'rclone sync gdcy: odcy:GD备份 -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
     if: github.event.repository.owner.id == github.event.sender.id
     env:
