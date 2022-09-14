@@ -30,10 +30,6 @@ jobs:
           python3 autoscriptbackend/check.py
       - id: checkresult
         run: echo "::set-output name=test::${{ env.RUN }}"
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
       - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
