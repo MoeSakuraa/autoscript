@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-pip-
       - name: Install Rclone && Rclone actions
         run: |
-          python3 -m pip install pynacl requests
+          python3 -m pip install pynacl
           wget --retry-on-http-error=502,503 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone

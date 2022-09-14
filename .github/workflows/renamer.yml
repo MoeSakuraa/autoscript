@@ -52,7 +52,6 @@ jobs:
       - name: file rename
         if: contains(env.RUN, 'run')
         run: |
-          python3 -m pip install requests
           python3 autoscriptbackend/renamer.py
   call-next-task:
     runs-on: ubuntu-latest

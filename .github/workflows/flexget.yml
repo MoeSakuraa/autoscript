@@ -49,11 +49,6 @@ jobs:
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
-      - name: Install dependencies
-        if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
-        run: |
-          python3 -m pip install wheel
-          python3 -m pip install colorama
       - name: Install & Configure FlexGet
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
