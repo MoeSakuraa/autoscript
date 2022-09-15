@@ -39,7 +39,7 @@ jobs:
       - name: Set up Rclone &Copy backend File
         if: contains(env.RUN, 'run')
         run: |
-          wget --retry-on-http-error=502,503 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.1/rclone-v1.59.1-linux-amd64.zip
+          wget --retry-on-http-error=502,503 -t 0 -O rclone-linux-amd64.zip https://github.com/rclone/rclone/releases/download/v1.59.2/rclone-v1.59.2-linux-amd64.zip
           unzip rclone-linux-amd64.zip
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
