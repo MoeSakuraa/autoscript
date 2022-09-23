@@ -48,6 +48,7 @@ jobs:
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
           python3 autoscriptbackend/installpymod.py
+          echo "::set-output name=test::${{ env.RUN }}"
           cp -rl autoscriptbackend/flexget/. ~/.flexget
       - name: Check Aria2
         if: github.event.action == 'FlexGet execute' && contains(env.RUN, 'run')
