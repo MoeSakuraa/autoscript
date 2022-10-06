@@ -23,8 +23,8 @@ jobs:
     strategy:
       matrix:
         command:
-          - 'rclone sync gd: odunion: -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
-          - 'rclone sync gdcy: odcy:GD备份 -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 100 --union-min-free-space 100Gi'
+          - 'rclone sync gd: odunion: -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 10'
+          - 'rclone sync gdcy: odcy:GD备份 -P --delete-before --delete-excluded --retries-sleep 1s --retries 10 --transfers 10'
     if: github.event.repository.owner.id == github.event.sender.id
     env:
       COMMAND: ${{ matrix.command }}
