@@ -61,6 +61,7 @@ jobs:
           python3 autoscriptbackend/getrss.py
           python3 autoscriptbackend/checkaria2.py
           flexget execute
+          python3 autoscriptbackend/checkaria2.py
           python3 autoscriptbackend/databasecleanup.py
       - name: FlexGet learn
         if: github.event.action == 'FlexGet learn'
