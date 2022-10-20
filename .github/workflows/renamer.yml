@@ -29,7 +29,7 @@ jobs:
         run: |
           python3 autoscriptbackend/check.py
       - id: checkresult
-        run: echo "::set-output name=test::${{ env.RUN }}"
+        run: echo "test=${{ env.RUN }}" >> $GITHUB_OUTPUT
       - name: Set up Rclone &Copy backend File
         if: contains(env.RUN, 'run')
         run: |
@@ -38,7 +38,6 @@ jobs:
           sudo cp rclone*/rclone /usr/bin/rclone
           mkdir -p ~/.config/rclone
           base64 -di > ~/.config/rclone/rclone.conf <<< $RCLONECONF
-
       - name: file rename
         if: contains(env.RUN, 'run')
         run: |
