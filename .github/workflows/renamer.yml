@@ -30,12 +30,6 @@ jobs:
           python3 autoscriptbackend/check.py
       - id: checkresult
         run: echo "::set-output name=test::${{ env.RUN }}"
-      - uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
       - name: Set up Rclone &Copy backend File
         if: contains(env.RUN, 'run')
         run: |
