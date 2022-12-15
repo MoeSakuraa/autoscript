@@ -51,7 +51,7 @@ jobs:
       - name: FlexGet execute
         if: github.event.action == 'FlexGet execute' && contains(env.RUN, 'run')
         run: |
-          rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
+          rclone copyto cloudflarer2:moesakura/db-config.sqlite ~/.flexget/db-config.sqlite
           python3 autoscriptbackend/getrss.py
           python3 autoscriptbackend/checkaria2.py
           flexget execute
@@ -60,13 +60,13 @@ jobs:
       - name: FlexGet learn
         if: github.event.action == 'FlexGet learn'
         run: |
-          rclone copyto gdpersonal:flexget/db-config.sqlite ~/.flexget/db-config.sqlite
+          rclone copyto cloudflarer2:moesakura/db-config.sqlite ~/.flexget/db-config.sqlite
           python3 autoscriptbackend/getrss.py
           flexget execute --learn
       - name: Upload FlexGet database
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
-          rclone copyto ~/.flexget/db-config.sqlite gdpersonal:flexget/db-config.sqlite
+          rclone copyto ~/.flexget/db-config.sqlite cloudflarer2:moesakura/db-config.sqlite
       - name: call-next-task
         if: contains(env.RUN, 'run') || github.event.action == 'FlexGet learn'
         run: |
